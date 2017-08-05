@@ -63,13 +63,13 @@ class Map extends \Miya\WP\Custom_Field
 		$tag = plugins_url( 'tags/map.tag', dirname( __FILE__ ) );
 		wp_nonce_field( $this->id, $this->id . '-nonce' );
 		?>
-			<div id="<?php echo esc_attr( $this->id ); ?>-map" style="width=100%; height:300px;"><map></map></div>
+			<div id="<?php echo esc_attr( $this->id . '-map' ); ?>" style="width=100%; height:300px;"><map></map></div>
 			<p class="">
-				Latitude: <input id="<?php echo esc_attr( $this->id ); ?>-lat" type="text"
-					name="<?php echo esc_attr( $this->id ); ?>-lat"
+				Latitude: <input id="<?php echo esc_attr( $this->id . '-lat' ); ?>" type="text"
+					name="<?php echo esc_attr( $this->id . '-lat' ); ?>"
 					value="<?php echo esc_attr( get_post_meta( get_the_ID(), '_'.$this->id.'-lat', true ) ); ?>">
-				Longitude: <input id="<?php echo esc_attr( $this->id ); ?>-lng" type="text"
-					name="<?php echo esc_attr( $this->id ); ?>-lng"
+				Longitude: <input id="<?php echo esc_attr( $this->id . '-lng' ); ?>" type="text"
+					name="<?php echo esc_attr( $this->id . '-lng' ); ?>"
 					value="<?php echo esc_attr( get_post_meta( get_the_ID(), '_'.$this->id.'-lng', true ) ); ?>">
 			</p>
 			<script src="<?php echo esc_url( $tag ); ?>" type="riot/tag"></script>
