@@ -1,6 +1,12 @@
 # miya/custom-field-map
 
-A custom field to save latitude and longitude for WordPress
+[![Build Status](https://travis-ci.org/miya0001/custom-field-map.svg?branch=master)](https://travis-ci.org/miya0001/custom-field-map)
+[![Latest Stable Version](https://poser.pugx.org/miya/custom-field-map/v/stable)](https://packagist.org/packages/miya/custom-field-map)
+[![Total Downloads](https://poser.pugx.org/miya/custom-field-map/downloads)](https://packagist.org/packages/miya/custom-field-map)
+[![Latest Unstable Version](https://poser.pugx.org/miya/custom-field-map/v/unstable)](https://packagist.org/packages/miya/custom-field-map)
+[![License](https://poser.pugx.org/miya/custom-field-map/license)](https://packagist.org/packages/miya/custom-field-map)
+
+A custom field to save latitude and longitude for WordPress.
 
 ## Install
 
