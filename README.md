@@ -6,7 +6,9 @@
 [![Latest Unstable Version](https://poser.pugx.org/miya/custom-field-map/v/unstable)](https://packagist.org/packages/miya/custom-field-map)
 [![License](https://poser.pugx.org/miya/custom-field-map/license)](https://packagist.org/packages/miya/custom-field-map)
 
-A custom field to save latitude and longitude for WordPress.
+Add a custom field to save latitude and longitude to the edit screen of the specific post type for WordPress.
+
+![](https://www.evernote.com/l/ABXexIRE6etKZZnLfuOgw3mB0vfvwQJpJPAB/image.png)
 
 ## Install
 
@@ -28,5 +30,3 @@ $post_type = 'geometry';   // The post type to add meta box.
 $map = new \Miya\WP\Custom_Field\Map( $id, $title );
 $map->add( $post_type );
 ```
-
-![](https://www.evernote.com/l/ABXexIRE6etKZZnLfuOgw3mB0vfvwQJpJPAB/image.png)
