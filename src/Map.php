@@ -53,18 +53,18 @@ class Map extends \Miya\WP\Custom_Field
 	}
 
 	/**
-	 * Fires at the `meta_box_callback` hook.
+	 * Displays the form for the metabox. The nonce will be added automatically.
 	 *
-	 * @param object $post A object of the post.
+	 * @param object $post The object of the post.
+	 * @param array $args The argumets passed from `add_meta_box()`.
 	 * @return none
 	 */
-	public function meta_box_callback( $post )
+	public function form( $post, $args )
 	{
 		$tag = plugins_url( 'tags/map.tag', dirname( __FILE__ ) );
-		wp_nonce_field( $this->id, $this->id . '-nonce' );
 		?>
 			<div id="<?php echo esc_attr( $this->id . '-map' ); ?>" style="width=100%; height:300px;"><map></map></div>
-			<p class="">
+			<p>
 				Latitude: <input id="<?php echo esc_attr( $this->id . '-lat' ); ?>" type="text"
 					name="<?php echo esc_attr( $this->id . '-lat' ); ?>"
 					value="<?php echo esc_attr( get_post_meta( get_the_ID(), '_'.$this->id.'-lat', true ) ); ?>">
@@ -77,16 +77,14 @@ class Map extends \Miya\WP\Custom_Field
 	}
 
 	/**
-	 * Fires at the `save_post` hook.
+	 * Save the metadata from the `form()`. The nonce will be verified automatically.
 	 *
-	 * @param int $post_id An ID of the post.
+	 * @param int $post_id The ID of the post.
 	 * @return none
 	 */
-	public function save_post( $post_id )
+	public function save( $post_id )
 	{
-		if ( ! empty( $_POST[ $this->id . '-nonce' ] ) && wp_verify_nonce( $_POST[ $this->id . '-nonce' ], $this->id ) ) {
-			update_post_meta( $post_id, '_' . $this->id . '-lat', $_POST[ $this->id . '-lat' ] );
-			update_post_meta( $post_id, '_' . $this->id . '-lng', $_POST[ $this->id . '-lng' ] );
-		}
+		update_post_meta( $post_id, '_' . $this->id . '-lat', $_POST[ $this->id . '-lat' ] );
+		update_post_meta( $post_id, '_' . $this->id . '-lng', $_POST[ $this->id . '-lng' ] );
 	}
 }
