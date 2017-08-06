@@ -13,6 +13,6 @@
         }
     },
     "require": {
-        "miya/custom-field": "^1.0"
+        "miya/custom-field": "^2.0"
     }
 }

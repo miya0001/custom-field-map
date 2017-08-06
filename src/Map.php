@@ -58,13 +58,12 @@ class Map extends \Miya\WP\Custom_Field
 	 * @param object $post A object of the post.
 	 * @return none
 	 */
-	public function meta_box_callback( $post )
+	public function form( $post, $args )
 	{
 		$tag = plugins_url( 'tags/map.tag', dirname( __FILE__ ) );
-		wp_nonce_field( $this->id, $this->id . '-nonce' );
 		?>
 			<div id="<?php echo esc_attr( $this->id . '-map' ); ?>" style="width=100%; height:300px;"><map></map></div>
-			<p class="">
+			<p>
 				Latitude: <input id="<?php echo esc_attr( $this->id . '-lat' ); ?>" type="text"
 					name="<?php echo esc_attr( $this->id . '-lat' ); ?>"
 					value="<?php echo esc_attr( get_post_meta( get_the_ID(), '_'.$this->id.'-lat', true ) ); ?>">
@@ -82,11 +81,9 @@ class Map extends \Miya\WP\Custom_Field
 	 * @param int $post_id An ID of the post.
 	 * @return none
 	 */
-	public function save_post( $post_id )
+	public function save( $post_id )
 	{
-		if ( ! empty( $_POST[ $this->id . '-nonce' ] ) && wp_verify_nonce( $_POST[ $this->id . '-nonce' ], $this->id ) ) {
-			update_post_meta( $post_id, '_' . $this->id . '-lat', $_POST[ $this->id . '-lat' ] );
-			update_post_meta( $post_id, '_' . $this->id . '-lng', $_POST[ $this->id . '-lng' ] );
-		}
+		update_post_meta( $post_id, '_' . $this->id . '-lat', $_POST[ $this->id . '-lat' ] );
+		update_post_meta( $post_id, '_' . $this->id . '-lng', $_POST[ $this->id . '-lng' ] );
 	}
 }
