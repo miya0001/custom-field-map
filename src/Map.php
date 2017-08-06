@@ -53,9 +53,10 @@ class Map extends \Miya\WP\Custom_Field
 	}
 
 	/**
-	 * Fires at the `meta_box_callback` hook.
+	 * Displays the form for the metabox. The nonce will be added automatically.
 	 *
-	 * @param object $post A object of the post.
+	 * @param object $post The object of the post.
+	 * @param array $args The argumets passed from `add_meta_box()`.
 	 * @return none
 	 */
 	public function form( $post, $args )
@@ -76,9 +77,9 @@ class Map extends \Miya\WP\Custom_Field
 	}
 
 	/**
-	 * Fires at the `save_post` hook.
+	 * Save the metadata from the `form()`. The nonce will be verified automatically.
 	 *
-	 * @param int $post_id An ID of the post.
+	 * @param int $post_id The ID of the post.
 	 * @return none
 	 */
 	public function save( $post_id )
