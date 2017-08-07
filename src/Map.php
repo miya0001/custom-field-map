@@ -20,36 +20,33 @@ class Map extends \Miya\WP\Custom_Field
 	 */
 	public function admin_enqueue_scripts( $hook )
 	{
-		$screen = get_current_screen();
-		if ( ( 'post-new.php' === $hook || 'post.php' === $hook ) && $this->post_type === $screen->post_type ) {
-			wp_enqueue_script(
-				'riot',
-				'https://cdn.jsdelivr.net/npm/riot@3.6/riot+compiler.min.js',
-				array(),
-				false,
-				true
-			);
-			wp_enqueue_script(
-				'leaflet',
-				'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.1.0/leaflet.js',
-				array(),
-				false,
-				true
-			);
-			wp_enqueue_script(
-				'app',
-				plugins_url( 'js/app.js', dirname( __FILE__ ) ),
-				array( 'jquery', 'riot', 'leaflet' ),
-				false,
-				true
-			);
-			wp_enqueue_style(
-				'leaflet',
-				'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.1.0/leaflet.css',
-				array(),
-				false
-			);
-		}
+		wp_enqueue_script(
+			'riot',
+			'https://cdn.jsdelivr.net/npm/riot@3.6/riot+compiler.min.js',
+			array(),
+			false,
+			true
+		);
+		wp_enqueue_script(
+			'leaflet',
+			'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.1.0/leaflet.js',
+			array(),
+			false,
+			true
+		);
+		wp_enqueue_script(
+			'app',
+			plugins_url( 'js/app.js', dirname( __FILE__ ) ),
+			array( 'jquery', 'riot', 'leaflet' ),
+			false,
+			true
+		);
+		wp_enqueue_style(
+			'leaflet',
+			'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.1.0/leaflet.css',
+			array(),
+			false
+		);
 	}
 
 	/**
