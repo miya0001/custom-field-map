@@ -23,10 +23,6 @@ $ composer require miya/custom-field-map
 
 require_once( dirname( __FILE__ ) . '/vendor/autoload.php' );
 
-$id = 'map';               // The identifier of the meta box.
-$title = 'Map';            // The title of the meta box.
-$post_type = 'geometry';   // The post type to add meta box.
-
-$map = new \Miya\WP\Custom_Field\Map( $id, $title );
-$map->add( $post_type );
+$map = new \Miya\WP\Custom_Field\Map( 'latlng', 'Latitude and Longitude' );
+$map->add( 'my-post-type' );
 ```
