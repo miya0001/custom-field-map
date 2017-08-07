@@ -24,5 +24,5 @@ $ composer require miya/custom-field-map
 require_once( dirname( __FILE__ ) . '/vendor/autoload.php' );
 
 $map = new \Miya\WP\Custom_Field\Map( 'latlng', 'Latitude and Longitude' );
-$map->add( 'my-post-type' );
+$map->add( 'post' ); // Set post type to display meta box.
 ```
