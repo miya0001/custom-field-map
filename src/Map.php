@@ -81,7 +81,12 @@ class Map extends \Miya\WP\Custom_Field
 	 */
 	public function save( $post_id )
 	{
-		update_post_meta( $post_id, '_' . $this->id . '-lat', $_POST[ $this->id . '-lat' ] );
-		update_post_meta( $post_id, '_' . $this->id . '-lng', $_POST[ $this->id . '-lng' ] );
+		if ( isset( $_POST[ $this->id . '-lat' ] ) ) {
+			update_post_meta( $post_id, '_' . $this->id . '-lat', $_POST[ $this->id . '-lat' ] );
+		}
+
+		if ( isset( $_POST[ $this->id . '-lng' ] ) ) {
+			update_post_meta( $post_id, '_' . $this->id . '-lng', $_POST[ $this->id . '-lng' ] );
+		}
 	}
 }
