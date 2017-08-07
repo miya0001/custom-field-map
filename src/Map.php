@@ -62,10 +62,10 @@ class Map extends \Miya\WP\Custom_Field
 		?>
 			<div id="<?php echo esc_attr( $this->id . '-map' ); ?>" style="width=100%; height:300px;"><map></map></div>
 			<p>
-				Latitude: <input id="<?php echo esc_attr( $this->id . '-lat' ); ?>" type="text"
+				<input id="<?php echo esc_attr( $this->id . '-lat' ); ?>" type="hidden"
 					name="<?php echo esc_attr( $this->id . '-lat' ); ?>"
 					value="<?php echo esc_attr( get_post_meta( get_the_ID(), '_'.$this->id.'-lat', true ) ); ?>">
-				Longitude: <input id="<?php echo esc_attr( $this->id . '-lng' ); ?>" type="text"
+				<input id="<?php echo esc_attr( $this->id . '-lng' ); ?>" type="hidden"
 					name="<?php echo esc_attr( $this->id . '-lng' ); ?>"
 					value="<?php echo esc_attr( get_post_meta( get_the_ID(), '_'.$this->id.'-lng', true ) ); ?>">
 			</p>

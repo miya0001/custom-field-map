@@ -69,8 +69,8 @@ class Custom_Field_Map_Tests extends WP_UnitTestCase
 		$res = ob_get_contents();
 		ob_end_clean();
 
-		$this->assertRegExp( '#Latitude: <input id="hello-lat" type="text"#', $res );
-		$this->assertRegExp( '#Longitude: <input id="hello-lng" type="text"#', $res );
+		$this->assertRegExp( '#id="hello-lat"#', $res );
+		$this->assertRegExp( '#id="hello-lng"#', $res );
 		$this->assertRegExp( '#value="1111">#', $res );
 		$this->assertRegExp( '#value="2222">#', $res );
 	}
