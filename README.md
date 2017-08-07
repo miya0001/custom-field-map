@@ -8,7 +8,7 @@
 
 Add a custom field to save latitude and longitude to the edit screen of the specific post type for WordPress.
 
-![](https://www.evernote.com/l/ABXexIRE6etKZZnLfuOgw3mB0vfvwQJpJPAB/image.png)
+![](https://www.evernote.com/l/ABVTtOOiJmJJ8493HHRU2LTwQB-NyY1oAEcB/image.png)
 
 ## Install
 
