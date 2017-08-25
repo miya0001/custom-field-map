@@ -59,14 +59,20 @@ class Map extends \Miya\WP\Custom_Field
 	public function form( $post, $args )
 	{
 		$tag = plugins_url( 'tags/map.tag', dirname( __FILE__ ) );
+		$meta = get_post_meta( get_the_ID(), $this->id, true );
+
+		if ( empty( $meta ) || empty( $meta['lat'] ) || empty( $meta['lng'] ) ) {
+			$meta = array( 'lat' => '', 'lng' => '' );
+		}
+
 		?>
 			<div id="<?php echo esc_attr( $this->id . '-map' ); ?>" style="width=100%; height:300px;"><map></map></div>
 			<input id="<?php echo esc_attr( $this->id . '-lat' ); ?>" type="hidden"
-				name="<?php echo esc_attr( $this->id . '-lat' ); ?>"
-				value="<?php echo esc_attr( get_post_meta( get_the_ID(), '_'.$this->id.'-lat', true ) ); ?>">
+				name="<?php echo esc_attr( $this->id ); ?>[lat]"
+				value="<?php echo esc_attr( $meta['lat'] ); ?>">
 			<input id="<?php echo esc_attr( $this->id . '-lng' ); ?>" type="hidden"
-				name="<?php echo esc_attr( $this->id . '-lng' ); ?>"
-				value="<?php echo esc_attr( get_post_meta( get_the_ID(), '_'.$this->id.'-lng', true ) ); ?>">
+				name="<?php echo esc_attr( $this->id ); ?>[lng]"
+				value="<?php echo esc_attr( $meta['lng'] ); ?>">
 			<script src="<?php echo esc_url( $tag ); ?>" type="riot/tag"></script>
 		<?php
 	}
@@ -79,12 +85,8 @@ class Map extends \Miya\WP\Custom_Field
 	 */
 	public function save( $post_id )
 	{
-		if ( isset( $_POST[ $this->id . '-lat' ] ) ) {
-			update_post_meta( $post_id, '_' . $this->id . '-lat', $_POST[ $this->id . '-lat' ] );
-		}
-
-		if ( isset( $_POST[ $this->id . '-lng' ] ) ) {
-			update_post_meta( $post_id, '_' . $this->id . '-lng', $_POST[ $this->id . '-lng' ] );
+		if ( isset( $_POST[ $this->id ] ) ) {
+			update_post_meta( $post_id, $this->id, $_POST[ $this->id ] );
 		}
 	}
 }
