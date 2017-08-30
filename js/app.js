@@ -19,6 +19,7 @@ if ( latlng ) {
 if ( jQuery( '#custom-field-lat' ).val() && jQuery( '#custom-field-map-lng' ).val() ) {
 	config.lat = jQuery( '#custom-field-map-lat' ).val();
 	config.lng = jQuery( '#custom-field-map-lng' ).val();
+	config.zoom = jQuery( '#custom-field-map-zoom' ).val();
 }
 
 riot.mount( "map", config )
