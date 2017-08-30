@@ -66,13 +66,16 @@ class Map extends \Miya\WP\Custom_Field
 		}
 
 		?>
-			<div id="<?php echo esc_attr( $this->id . '-map' ); ?>" style="width=100%; height:300px;"><map></map></div>
-			<input id="<?php echo esc_attr( $this->id . '-lat' ); ?>" type="hidden"
-				name="<?php echo esc_attr( $this->id ); ?>[lat]"
-				value="<?php echo esc_attr( $meta['lat'] ); ?>">
-			<input id="<?php echo esc_attr( $this->id . '-lng' ); ?>" type="hidden"
-				name="<?php echo esc_attr( $this->id ); ?>[lng]"
-				value="<?php echo esc_attr( $meta['lng'] ); ?>">
+			<div id="custom-field-map" style="width=100%; height:300px;"><map></map></div>
+			<input id="custom-field-map-lat" type="text"
+				name="<?php echo esc_attr( $this->id ); ?>-latlng[lat]"
+				value="<?php echo esc_attr( @$meta['lat'] ); ?>">
+			<input id="custom-field-map-lng" type="text"
+				name="<?php echo esc_attr( $this->id ); ?>-latlng[lng]"
+				value="<?php echo esc_attr( @$meta['lng'] ); ?>">
+			<input id="custom-field-map-zoom" type="text"
+				name="<?php echo esc_attr( $this->id ); ?>-latlng[zoom]"
+				value="<?php echo esc_attr( @$meta['zoom'] ); ?>">
 			<script src="<?php echo esc_url( $tag ); ?>" type="riot/tag"></script>
 		<?php
 	}
@@ -85,8 +88,8 @@ class Map extends \Miya\WP\Custom_Field
 	 */
 	public function save( $post_id )
 	{
-		if ( isset( $_POST[ $this->id ] ) ) {
-			update_post_meta( $post_id, $this->id, $_POST[ $this->id ] );
+		if ( isset( $_POST[ $this->id . '-latlng' ] ) ) {
+			update_post_meta( $post_id, $this->id, $_POST[ $this->id . '-latlng' ] );
 		}
 	}
 }
