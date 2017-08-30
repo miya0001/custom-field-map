@@ -44,7 +44,7 @@
     }
 
     var marker = L.marker()
-	marker.setLatLng( [ jQuery( '#geonic-lat' ).val(), jQuery( '#geonic-lng' ).val() ] ).addTo( map )
+	  marker.setLatLng( [ jQuery( '#custom-field-map-lat' ).val(), jQuery( '#custom-field-map-lng' ).val() ] ).addTo( map )
 
     map.on( 'click', function( e ) {
       var lat = e.latlng.lat
@@ -59,8 +59,9 @@
         }
       }
 
-	  jQuery( '#geonic-lat' ).val( lat )
-	  jQuery( '#geonic-lng' ).val( lng )
+      jQuery( '#custom-field-map-lat' ).val( lat )
+      jQuery( '#custom-field-map-lng' ).val( lng )
+      jQuery( '#custom-field-map-zoom' ).val( e.target._zoom )
 
       marker.setLatLng( [ e.latlng.lat, e.latlng.lng ] ).addTo( map )
     } )
@@ -79,7 +80,7 @@
           lng = lng + 360
         }
       }
-	  window.localStorage.setItem( 'location', zoom + ',' + lat + ',' + lng )
+	    window.localStorage.setItem( 'location', zoom + ',' + lat + ',' + lng )
     } )
   </script>
 </map>
