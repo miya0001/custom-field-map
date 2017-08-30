@@ -67,13 +67,13 @@ class Map extends \Miya\WP\Custom_Field
 
 		?>
 			<div id="custom-field-map" style="width=100%; height:300px;"><map></map></div>
-			<input id="custom-field-map-lat" type="text"
+			<input id="custom-field-map-lat" type="hidden"
 				name="<?php echo esc_attr( $this->id ); ?>-latlng[lat]"
 				value="<?php echo esc_attr( @$meta['lat'] ); ?>">
-			<input id="custom-field-map-lng" type="text"
+			<input id="custom-field-map-lng" type="hidden"
 				name="<?php echo esc_attr( $this->id ); ?>-latlng[lng]"
 				value="<?php echo esc_attr( @$meta['lng'] ); ?>">
-			<input id="custom-field-map-zoom" type="text"
+			<input id="custom-field-map-zoom" type="hidden"
 				name="<?php echo esc_attr( $this->id ); ?>-latlng[zoom]"
 				value="<?php echo esc_attr( @$meta['zoom'] ); ?>">
 			<script src="<?php echo esc_url( $tag ); ?>" type="riot/tag"></script>
