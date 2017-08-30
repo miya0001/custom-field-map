@@ -54,7 +54,7 @@ class Custom_Field_Map_Tests extends WP_UnitTestCase
 
 		$post_id = $this->factory->post->create( array( 'post_title' => 'Test Post' ) );
 
-		update_post_meta( $post_id, 'hello', array( 'lat' => '1111', 'lng' => 2222 ) );
+		update_post_meta( $post_id, 'hello', array( 'lat' => '1111', 'lng' => 2222, 'zoom' => 9 ) );
 
 		$GLOBALS['post'] = get_post( $post_id );
 
@@ -68,10 +68,12 @@ class Custom_Field_Map_Tests extends WP_UnitTestCase
 		$res = ob_get_contents();
 		ob_end_clean();
 
-		$this->assertRegExp( '#id="hello-lat"#', $res );
-		$this->assertRegExp( '#id="hello-lng"#', $res );
+		$this->assertRegExp( '#id="custom-field-map-lat"#', $res );
+		$this->assertRegExp( '#id="custom-field-map-lng"#', $res );
+		$this->assertRegExp( '#id="custom-field-map-zoom"#', $res );
 		$this->assertRegExp( '#value="1111">#', $res );
 		$this->assertRegExp( '#value="2222">#', $res );
+		$this->assertRegExp( '#value="9">#', $res );
 	}
 
 	/**
@@ -100,8 +102,8 @@ class Custom_Field_Map_Tests extends WP_UnitTestCase
 		$res = ob_get_contents();
 		ob_end_clean();
 
-		$this->assertRegExp( '#id="hello-lat"#', $res );
-		$this->assertRegExp( '#id="hello-lng"#', $res );
+		$this->assertRegExp( '#id="custom-field-map-lat"#', $res );
+		$this->assertRegExp( '#id="custom-field-map-lng"#', $res );
 		$this->assertRegExp( '#value="">#', $res );
 		$this->assertRegExp( '#value="">#', $res );
 	}
