@@ -29,14 +29,14 @@ class Map extends \Miya\WP\Custom_Field
 		);
 		wp_enqueue_script(
 			'leaflet',
-			'https://leaflet.github.io/Leaflet.draw/docs/examples/libs/leaflet-src.js',
+			'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.js',
 			array(),
 			false,
 			true
 		);
 		wp_enqueue_script(
 			'leaflet-draw',
-			'https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js',
+			'https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.12/leaflet.draw.js',
 			array( 'leaflet' ),
 			false,
 			true
@@ -51,13 +51,13 @@ class Map extends \Miya\WP\Custom_Field
 
 		wp_enqueue_style(
 			'leaflet',
-			'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.1.0/leaflet.css',
+			'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css',
 			array(),
 			false
 		);
 		wp_enqueue_style(
 			'leaflet-draw',
-			'https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css',
+			'https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.12/leaflet.draw.css',
 			array(),
 			false
 		);
@@ -75,7 +75,7 @@ class Map extends \Miya\WP\Custom_Field
 		$tag = plugins_url( 'tags/map.tag', dirname( __FILE__ ) );
 		$values = get_post_meta( get_the_ID(), 'custom-field-map', true )
 		?>
-			<div id="<?php echo esc_attr( $this->id . '-map' ); ?>" style="width=100%; height:500px;"><map></map></div>
+			<div id="<?php echo esc_attr( $this->id . '-map' ); ?>" style="width=100%; height:500px; position:relative;"><map></map></div>
 			<input id="custom-field-map-lat" type="hidden"
 				name="custom-field-map[lat]"
 				value="<?php echo @esc_attr( $values['lat'] ); ?>">
@@ -88,6 +88,7 @@ class Map extends \Miya\WP\Custom_Field
 			<input id="custom-field-map-geojson" type="hidden"
 				name="custom-field-map[geojson]"
 				value="<?php echo @esc_attr( $values['geojson'] ); ?>">
+
 			<script src="<?php echo esc_url( $tag ); ?>" type="riot/tag"></script>
 		<?php
 	}
