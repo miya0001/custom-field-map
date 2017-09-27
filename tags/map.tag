@@ -1,5 +1,7 @@
 <map class="map" style="width: 100%; height: 100%;">
 	<script>
+		window.icon_num = 0;
+
 		var div = document.createElement( 'div' )
 		this.root.appendChild( div )
 		div.style.width = '100%'
@@ -68,6 +70,14 @@
 			} ) )
 		}
 
+        map.on( L.Draw.Event.DRAWSTART, function( e ) {
+			drawControl.setDrawingOptions( {
+				marker: {
+					icon: icons[ icon_num % icons.length ]
+				}
+			} );
+		} );
+
         map.on( L.Draw.Event.CREATED, function( e ) {
             var type = e.layerType,
                 layer = e.layer,
@@ -77,7 +87,8 @@
 			props.icon = 0;
 
             if ( type === 'marker' ) {
-				window.icon_num = 0;
+				props.icon = icon_num % icons.length;
+				layer.setIcon( icons[ props.icon ] );
 				layer.on( 'click', function( e ) {
 					icon_num += 1;
 					var n = icon_num % icons.length;
