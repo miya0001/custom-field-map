@@ -61,21 +61,23 @@ class Map extends \Miya\WP\Custom_Field
 		$tag = plugins_url( 'tags/map.tag', dirname( __FILE__ ) );
 		$meta = get_post_meta( get_the_ID(), $this->id, true );
 
-		if ( empty( $meta ) || empty( $meta['lat'] ) || empty( $meta['lng'] ) ) {
-			$meta = array( 'lat' => '', 'lng' => '' );
+		if ( empty( $meta ) || empty( $meta['lat'] ) || empty( $meta['lng'] ) || empty( $meta['zoom'] ) ) {
+			$meta = array( 'lat' => '', 'lng' => '', 'zoom' => '' );
 		}
 
 		?>
-			<div id="custom-field-map" style="width=100%; height:300px;"><map></map></div>
-			<input id="custom-field-map-lat" type="hidden"
-				name="<?php echo esc_attr( $this->id ); ?>-latlng[lat]"
-				value="<?php echo esc_attr( @$meta['lat'] ); ?>">
-			<input id="custom-field-map-lng" type="hidden"
-				name="<?php echo esc_attr( $this->id ); ?>-latlng[lng]"
-				value="<?php echo esc_attr( @$meta['lng'] ); ?>">
-			<input id="custom-field-map-zoom" type="hidden"
-				name="<?php echo esc_attr( $this->id ); ?>-latlng[zoom]"
-				value="<?php echo esc_attr( @$meta['zoom'] ); ?>">
+			<div id="<?php echo esc_attr( $this->id ); ?>" style="width=100%; height:300px;"><map></map></div>
+			<input class="lat" type="hidden"
+				name="<?php echo esc_attr( $this->id ); ?>[lat]"
+				value="<?php echo esc_attr( $meta['lat'] ); ?>">
+			<input class="lng" type="hidden"
+				name="<?php echo esc_attr( $this->id ); ?>[lng]"
+				value="<?php echo esc_attr( $meta['lng'] ); ?>">
+			<input class="zoom" type="hidden"
+				name="<?php echo esc_attr( $this->id ); ?>[zoom]"
+				value="<?php echo esc_attr( $meta['zoom'] ); ?>">
+
+			<script>var custom_field_map_id = '<?php echo esc_js( $this->id ); ?>';</script>
 			<script src="<?php echo esc_url( $tag ); ?>" type="riot/tag"></script>
 		<?php
 	}
@@ -88,8 +90,8 @@ class Map extends \Miya\WP\Custom_Field
 	 */
 	public function save( $post_id )
 	{
-		if ( isset( $_POST[ $this->id . '-latlng' ] ) ) {
-			update_post_meta( $post_id, $this->id, $_POST[ $this->id . '-latlng' ] );
+		if ( isset( $_POST[ $this->id ] ) ) {
+			update_post_meta( $post_id, $this->id, $_POST[ $this->id ] );
 		}
 	}
 }
