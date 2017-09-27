@@ -56,6 +56,11 @@
 			'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
 			'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
 			'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+			'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png',
+			'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png',
+			'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png',
+			'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
+			'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png'
 		]
 
 		var icons = []
@@ -99,7 +104,7 @@
             featureGroup.addLayer(layer);
         } );
 
-		var geojson = jQuery( '#custom-field-map-geojson' ).val();
+		var geojson = jQuery( '#' + custom_field_id + ' .geojson' ).val();
 		if ( geojson ) {
 			var geojsonLayer = L.geoJson( JSON.parse( geojson ) );
 			geojsonLayer.eachLayer( function( l ) {
@@ -128,15 +133,25 @@
 					lng = lng + 360
 				}
 			}
-			jQuery( '#custom-field-map-lat' ).val( lat );
-			jQuery( '#custom-field-map-lng' ).val( lng );
-			jQuery( '#custom-field-map-zoom' ).val( zoom );
+			jQuery( '#' + custom_field_id + ' .lat' ).val( lat );
+			jQuery( '#' + custom_field_id + ' .lng' ).val( lng );
+			jQuery( '#' + custom_field_id + ' .zoom' ).val( zoom );
 			window.localStorage.setItem( 'location', zoom + ',' + lat + ',' + lng )
 		} )
 
 		jQuery( '#post' ).on( 'submit', function() {
+			if ( ! jQuery( '#' + custom_field_id + ' .lat' ).val() ) {
+				jQuery( '#' + custom_field_id + ' .lat' ).val( opts.lat );
+			}
+			if ( ! jQuery( '#' + custom_field_id + ' .lng' ).val() ) {
+				jQuery( '#' + custom_field_id + ' .lng' ).val( opts.lng );
+			}
+			if ( ! jQuery( '#' + custom_field_id + ' .zoom' ).val() ) {
+				jQuery( '#' + custom_field_id + ' .zoom' ).val( opts.zoom );
+			}
+
 			var geojson = JSON.stringify( featureGroup.toGeoJSON() );
-			jQuery( '#custom-field-map-geojson' ).val( geojson );
+			jQuery( '#' + custom_field_id + ' .geojson' ).val( geojson );
 		} );
 	</script>
 </map>

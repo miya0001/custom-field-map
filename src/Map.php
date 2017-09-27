@@ -73,22 +73,23 @@ class Map extends \Miya\WP\Custom_Field
 	public function form( $post, $args )
 	{
 		$tag = plugins_url( 'tags/map.tag', dirname( __FILE__ ) );
-		$values = get_post_meta( get_the_ID(), 'custom-field-map', true )
+		$values = get_post_meta( get_the_ID(), '_' . $this->id, true );
 		?>
-			<div id="<?php echo esc_attr( $this->id . '-map' ); ?>" style="width=100%; height:500px; position:relative;"><map></map></div>
-			<input id="custom-field-map-lat" type="hidden"
-				name="custom-field-map[lat]"
+			<div id="<?php echo esc_attr( $this->id ); ?>" style="width=100%; height:500px; position:relative;"><map></map></div>
+			<input class="lat" type="hidden"
+				name="<?php echo esc_attr( $this->id ); ?>[lat]"
 				value="<?php echo @esc_attr( $values['lat'] ); ?>">
-			<input id="custom-field-map-lng" type="hidden"
-				name="custom-field-map[lng]"
+			<input class="lng" type="hidden"
+				name="<?php echo esc_attr( $this->id ); ?>[lng]"
 				value="<?php echo @esc_attr( $values['lng'] ); ?>">
-			<input id="custom-field-map-zoom" type="hidden"
-				name="custom-field-map[zoom]"
+			<input class="zoom" type="hidden"
+				name="<?php echo esc_attr( $this->id ); ?>[zoom]"
 				value="<?php echo @esc_attr( $values['zoom'] ); ?>">
-			<input id="custom-field-map-geojson" type="hidden"
-				name="custom-field-map[geojson]"
+			<input class="geojson" type="hidden"
+				name="<?php echo esc_attr( $this->id ); ?>[geojson]"
 				value="<?php echo @esc_attr( $values['geojson'] ); ?>">
 
+			<script>var custom_field_id = '<?php echo esc_js( $this->id ); ?>';</script>
 			<script src="<?php echo esc_url( $tag ); ?>" type="riot/tag"></script>
 		<?php
 	}
@@ -101,8 +102,8 @@ class Map extends \Miya\WP\Custom_Field
 	 */
 	public function save( $post_id )
 	{
-		if ( isset( $_POST['custom-field-map'] ) ) {
-			update_post_meta( $post_id, 'custom-field-map', $_POST['custom-field-map'] );
+		if ( isset( $_POST[$this->id] ) ) {
+			update_post_meta( $post_id, '_' . $this->id, $_POST[$this->id] );
 		}
 	}
 }

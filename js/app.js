@@ -17,9 +17,9 @@ if ( latlng ) {
 
 // Override the lat and lng from post_meta
 if ( jQuery( '#custom-field-map-lat' ).val() && jQuery( '#custom-field-map-lng' ).val() ) {
-	config.lat = jQuery( '#custom-field-map-lat' ).val();
-	config.lng = jQuery( '#custom-field-map-lng' ).val();
-	config.zoom = jQuery( '#custom-field-map-zoom' ).val();
+	config.lat  = jQuery( '#' + custom_field_id + ' .lat' ).val();
+	config.lng  = jQuery( '#' + custom_field_id + ' .lng' ).val();
+	config.zoom = jQuery( '#' + custom_field_id + ' .zoom' ).val();
 }
 
 riot.mount( "map", config )
