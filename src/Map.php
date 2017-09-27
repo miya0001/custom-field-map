@@ -29,35 +29,21 @@ class Map extends \Miya\WP\Custom_Field
 		);
 		wp_enqueue_script(
 			'leaflet',
-			'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.js',
+			'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.1.0/leaflet.js',
 			array(),
-			false,
-			true
-		);
-		wp_enqueue_script(
-			'leaflet-draw',
-			'https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.12/leaflet.draw.js',
-			array( 'leaflet' ),
 			false,
 			true
 		);
 		wp_enqueue_script(
 			'app',
 			plugins_url( 'js/app.js', dirname( __FILE__ ) ),
-			array( 'jquery', 'riot', 'leaflet-draw' ),
+			array( 'jquery', 'riot', 'leaflet' ),
 			false,
 			true
 		);
-
 		wp_enqueue_style(
 			'leaflet',
-			'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css',
-			array(),
-			false
-		);
-		wp_enqueue_style(
-			'leaflet-draw',
-			'https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.12/leaflet.draw.css',
+			'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.1.0/leaflet.css',
 			array(),
 			false
 		);
@@ -73,23 +59,23 @@ class Map extends \Miya\WP\Custom_Field
 	public function form( $post, $args )
 	{
 		$tag = plugins_url( 'tags/map.tag', dirname( __FILE__ ) );
-		$values = get_post_meta( get_the_ID(), '_' . $this->id, true );
-		?>
-			<div id="<?php echo esc_attr( $this->id ); ?>" style="width=100%; height:500px; position:relative;"><map></map></div>
-			<input class="lat" type="hidden"
-				name="<?php echo esc_attr( $this->id ); ?>[lat]"
-				value="<?php echo @esc_attr( $values['lat'] ); ?>">
-			<input class="lng" type="hidden"
-				name="<?php echo esc_attr( $this->id ); ?>[lng]"
-				value="<?php echo @esc_attr( $values['lng'] ); ?>">
-			<input class="zoom" type="hidden"
-				name="<?php echo esc_attr( $this->id ); ?>[zoom]"
-				value="<?php echo @esc_attr( $values['zoom'] ); ?>">
-			<input class="geojson" type="hidden"
-				name="<?php echo esc_attr( $this->id ); ?>[geojson]"
-				value="<?php echo @esc_attr( $values['geojson'] ); ?>">
+		$meta = get_post_meta( get_the_ID(), $this->id, true );
 
-			<script>var custom_field_id = '<?php echo esc_js( $this->id ); ?>';</script>
+		if ( empty( $meta ) || empty( $meta['lat'] ) || empty( $meta['lng'] ) ) {
+			$meta = array( 'lat' => '', 'lng' => '' );
+		}
+
+		?>
+			<div id="custom-field-map" style="width=100%; height:300px;"><map></map></div>
+			<input id="custom-field-map-lat" type="hidden"
+				name="<?php echo esc_attr( $this->id ); ?>-latlng[lat]"
+				value="<?php echo esc_attr( @$meta['lat'] ); ?>">
+			<input id="custom-field-map-lng" type="hidden"
+				name="<?php echo esc_attr( $this->id ); ?>-latlng[lng]"
+				value="<?php echo esc_attr( @$meta['lng'] ); ?>">
+			<input id="custom-field-map-zoom" type="hidden"
+				name="<?php echo esc_attr( $this->id ); ?>-latlng[zoom]"
+				value="<?php echo esc_attr( @$meta['zoom'] ); ?>">
 			<script src="<?php echo esc_url( $tag ); ?>" type="riot/tag"></script>
 		<?php
 	}
@@ -102,8 +88,8 @@ class Map extends \Miya\WP\Custom_Field
 	 */
 	public function save( $post_id )
 	{
-		if ( isset( $_POST[$this->id] ) ) {
-			update_post_meta( $post_id, '_' . $this->id, $_POST[$this->id] );
+		if ( isset( $_POST[ $this->id . '-latlng' ] ) ) {
+			update_post_meta( $post_id, $this->id, $_POST[ $this->id . '-latlng' ] );
 		}
 	}
 }

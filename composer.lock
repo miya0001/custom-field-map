@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "miya/custom-field",
-            "version": "2.3.0",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/miya0001/custom-field.git",
-                "reference": "fc8823f400b34dd7fc9da088c36b0516c607749a"
+                "reference": "756ff0b70ec874370b0408a5461404fa4b7ca8b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/miya0001/custom-field/zipball/fc8823f400b34dd7fc9da088c36b0516c607749a",
-                "reference": "fc8823f400b34dd7fc9da088c36b0516c607749a",
+                "url": "https://api.github.com/repos/miya0001/custom-field/zipball/756ff0b70ec874370b0408a5461404fa4b7ca8b7",
+                "reference": "756ff0b70ec874370b0408a5461404fa4b7ca8b7",
                 "shasum": ""
             },
             "type": "library",
@@ -36,7 +36,7 @@
                     "email": "miya0001@users.noreply.github.com"
                 }
             ],
-            "time": "2017-09-27T12:22:15+00:00"
+            "time": "2017-08-07T11:59:44+00:00"
         }
     ],
     "packages-dev": [],
