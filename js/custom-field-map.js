@@ -25,6 +25,8 @@ Map.prototype.display = function( map_container ) {
 		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 	}).addTo(map);
 
+	var marker = L.marker( [ lat, lng ] ).addTo( map );
+
 	return map;
 }
 
