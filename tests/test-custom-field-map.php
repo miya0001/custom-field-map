@@ -16,9 +16,8 @@ class Custom_Field_Map_Tests extends WP_UnitTestCase
 		set_current_screen( 'post-new.php' );
 		do_action( 'admin_enqueue_scripts', 'post-new.php' );
 		$this->assertTrue( wp_style_is( 'leaflet' ) );
-		$this->assertTrue( wp_script_is( 'riot' ) );
 		$this->assertTrue( wp_script_is( 'leaflet' ) );
-		$this->assertTrue( wp_script_is( 'app' ) );
+		$this->assertTrue( wp_script_is( 'custom-field-map-admin' ) );
 	}
 
 	/**
@@ -35,9 +34,8 @@ class Custom_Field_Map_Tests extends WP_UnitTestCase
 		$GLOBALS['current_screen'] = convert_to_screen( 'my-post-type' );
 		do_action( 'admin_enqueue_scripts', 'post-new.php' );
 		$this->assertTrue( wp_style_is( 'leaflet' ) );
-		$this->assertTrue( wp_script_is( 'riot' ) );
 		$this->assertTrue( wp_script_is( 'leaflet' ) );
-		$this->assertTrue( wp_script_is( 'app' ) );
+		$this->assertTrue( wp_script_is( 'custom-field-map-admin' ) );
 	}
 
 	/**
@@ -68,12 +66,7 @@ class Custom_Field_Map_Tests extends WP_UnitTestCase
 		$res = ob_get_contents();
 		ob_end_clean();
 
-		$this->assertRegExp( '#id="hello"#', $res );
-		$this->assertRegExp( '#class="lng"#', $res );
-		$this->assertRegExp( '#class="zoom"#', $res );
-		$this->assertRegExp( '#value="1111">#', $res );
-		$this->assertRegExp( '#value="2222">#', $res );
-		$this->assertRegExp( '#value="9">#', $res );
+		$this->assertRegExp( '#<input type="hidden"#', $res );
 	}
 
 	/**
@@ -102,9 +95,6 @@ class Custom_Field_Map_Tests extends WP_UnitTestCase
 		$res = ob_get_contents();
 		ob_end_clean();
 
-		$this->assertRegExp( '#id="hello"#', $res );
-		$this->assertRegExp( '#class="lng"#', $res );
-		$this->assertRegExp( '#value="">#', $res );
-		$this->assertRegExp( '#value="">#', $res );
+		$this->assertRegExp( '#<input type="hidden"#', $res );
 	}
 }
