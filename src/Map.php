@@ -110,7 +110,6 @@ class Map extends \Miya\WP\Custom_Field
 	 */
 	public function form( $post, $args )
 	{
-		$tag = plugins_url( 'tags/map.tag', dirname( __FILE__ ) );
 		$meta = get_post_meta( get_the_ID(), $this->id, true );
 
 		if ( empty( $meta ) ) {
@@ -137,14 +136,13 @@ class Map extends \Miya\WP\Custom_Field
 
 			<p>Width: <input class="width" type="text"
 				name="<?php echo esc_attr( $this->id ); ?>[width]"
-				value="<?php echo @esc_attr( $values['width'] ); ?>">&nbsp;
+				value="<?php echo @esc_attr( $meta['width'] ); ?>">&nbsp;
 
 			Height: <input class="height" type="text"
 				name="<?php echo esc_attr( $this->id ); ?>[height]"
-				value="<?php echo @esc_attr( $values['height'] ); ?>"></p>
+				value="<?php echo @esc_attr( $meta['height'] ); ?>"></p>
 
 			<script>var custom_field_map_id = '<?php echo esc_js( $this->id ); ?>';</script>
-			<script src="<?php echo esc_url( $tag ); ?>" type="riot/tag"></script>
 		<?php
 	}
 
