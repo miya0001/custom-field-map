@@ -1,13 +1,20 @@
-var config = {
+var config = custom_field_map_options;
+
+var defaults = {
 	"lat": 0,
 	"lng": 0,
 	"zoom": 1,
-	"layers": [ {
+	"tiles": [ {
 	"name": "Open Street Map",
 	"tile": "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
 		"attribution": "OpenStreetMap Contributers",
 		"attribution_url": "http://osm.org/copyright"
 	} ]
+}
+
+for ( var prop in defaults ) {
+    if ( prop in config ) { continue; }
+    config[prop] = defaults[prop];
 }
 
 const latlng = localStorage.getItem( 'location' )
@@ -52,22 +59,20 @@ var map = L.map( div, {
 	} )
 	.setView( new L.LatLng( config.lat, config.lng ), config.zoom )
 
-var layers = config.layers
-
 var basemaps = {}
-for ( var i = 0; i < layers.length; i++ ) {
-	var layer = L.tileLayer( layers[ i ].tile, {
+for ( var i = 0; i < config.tiles.length; i++ ) {
+	var layer = L.tileLayer( config.tiles[ i ].tile, {
 		id: i,
-		attribution: '<a href="' + layers[ i ].attribution_url + '" target="_blank">' + layers[ i ].attribution + '</a>'
+		attribution: '<a href="' + config.tiles[ i ].attribution_url + '" target="_blank">' + config.tiles[ i ].attribution + '</a>'
 	} )
-	basemaps[ layers[ i ].name ] = layer
+	basemaps[ config.tiles[ i ].name ] = layer
 	if ( 0 === i ) {
 		map.addLayer( layer )
 	}
 }
 
-if ( layers.length > 1 ) {
-L.control.layers( basemaps, {}, { position: 'bottomleft' } ).addTo( map )
+if ( config.tiles.length > 1 ) {
+	L.control.layers( basemaps, {}, { position: 'bottomright' } ).addTo( map )
 }
 
 var marker = L.marker()

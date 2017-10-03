@@ -19,7 +19,11 @@ Map.prototype.display = function( map_container ) {
 	var icon_url = map_container.getAttribute( 'data-icon' );
 
 	// Initialize the map.
-	var map = L.map( map_container );
+	var map = L.map( map_container, {
+		scrollWheelZoom: false,
+		dragging: !L.Browser.mobile,
+		tap: false
+	} );
 	map.setView( [ lat, lng ], zoom );
 	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
