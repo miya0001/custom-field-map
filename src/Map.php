@@ -53,14 +53,6 @@ class Map extends \Miya\WP\Custom_Field
 			return;
 		}
 
-		if ( empty( $meta['width'] ) ) {
-			$meta['width'] = '100%';
-		}
-
-		if ( empty( $meta['height'] ) ) {
-			$meta['height'] = '300px';
-		}
-
 		$atts = array(
 			'class' => 'cf-map',
 			'data-id' => $this->id,
@@ -68,9 +60,6 @@ class Map extends \Miya\WP\Custom_Field
 			'data-lat' => $meta['lat'],
 			'data-lng' => $meta['lng'],
 			'data-zoom' => $meta['zoom'],
-			'data-width' => $meta['width'],
-			'data-height' => $meta['height'],
-			'style' => "width: {$meta['width']}; height: {$meta['height']}; margin: 1em 0;",
 		);
 
 		$html = '<div';
@@ -115,12 +104,6 @@ class Map extends \Miya\WP\Custom_Field
 		if ( empty( $meta ) ) {
 			$meta = array();
 		}
-		if ( empty( $meta['width'] ) ) {
-			$meta['width'] = '100%';
-		}
-		if ( empty( $values['height'] ) ) {
-			$meta['height'] = '300px';
-		}
 
 		?>
 			<div id="map-<?php echo esc_attr( $this->id ); ?>" style="width=100%; height:300px;"><map></map></div>
@@ -133,14 +116,6 @@ class Map extends \Miya\WP\Custom_Field
 			<input class="zoom" type="hidden"
 				name="<?php echo esc_attr( $this->id ); ?>[zoom]"
 				value="<?php echo @esc_attr( $meta['zoom'] ); ?>">
-
-			<p>Width: <input class="width" type="text"
-				name="<?php echo esc_attr( $this->id ); ?>[width]"
-				value="<?php echo @esc_attr( $meta['width'] ); ?>">&nbsp;
-
-			Height: <input class="height" type="text"
-				name="<?php echo esc_attr( $this->id ); ?>[height]"
-				value="<?php echo @esc_attr( $meta['height'] ); ?>"></p>
 
 			<script>
 				var custom_field_map_id = '<?php echo esc_js( $this->id ); ?>';

@@ -1,2 +1,3 @@
 /vendor/
 .envrc
+/node_modules/
