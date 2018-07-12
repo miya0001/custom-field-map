@@ -1,0 +1,17 @@
+{
+  "name": "custom-field-geometry",
+  "description": "",
+  "license": "GPL",
+  "homepage": "https://github.com/miya0001/custom-field-geometry",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "leaflet-draw": "leaflet.draw#^0.4.12"
+  }
+}
