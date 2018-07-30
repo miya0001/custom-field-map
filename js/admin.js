@@ -1,5 +1,9 @@
 var config = custom_field_map_options;
 
+var _lat = jQuery( '#' + custom_field_map_id + ' .lat' );
+var _lng = jQuery( '#' + custom_field_map_id + ' .lng' );
+var _zoom = jQuery( '#' + custom_field_map_id + ' .zoom' );
+
 var defaults = {
 	"lat": 0,
 	"lng": 0,
@@ -17,16 +21,16 @@ for ( var prop in defaults ) {
     config[prop] = defaults[prop];
 }
 
-const latlng = localStorage.getItem( 'location' )
+var latlng = localStorage.getItem( 'location' )
 if ( latlng ) {
   [ config.zoom, config.lat, config.lng ] = latlng.split( ',' )
 }
 
 // Override the lat and lng from post_meta
-if ( jQuery( '#' + custom_field_map_id + ' .lat' ).val() || jQuery( '#' + custom_field_map_id + ' .lng' ).val() ) {
-  config.lat  = jQuery( '#' + custom_field_map_id + ' .lat' ).val();
-  config.lng  = jQuery( '#' + custom_field_map_id + ' .lng' ).val();
-  config.zoom = jQuery( '#' + custom_field_map_id + ' .zoom' ).val();
+if ( _lat.val() || _lng.val() ) {
+  config.lat  = _lat.val();
+  config.lng  = _lng.val();
+  config.zoom = _zoom.val();
 }
 
 var div = document.createElement( 'div' )
@@ -76,7 +80,7 @@ if ( config.tiles.length > 1 ) {
 }
 
 var marker = L.marker()
-marker.setLatLng( [ jQuery( '#' + custom_field_map_id + ' .lat' ).val(), jQuery( '#' + custom_field_map_id + ' .lng' ).val() ] ).addTo( map )
+marker.setLatLng( [ _lat.val(), _lng.val() ] ).addTo( map )
 
 map.on( 'click', function( e ) {
 	var lat = e.latlng.lat
@@ -91,9 +95,9 @@ map.on( 'click', function( e ) {
 		}
 	}
 
-	jQuery( '#' + custom_field_map_id + ' .lat' ).val( lat )
-	jQuery( '#' + custom_field_map_id + ' .lng' ).val( lng )
-	jQuery( '#' + custom_field_map_id + ' .zoom' ).val( e.target._zoom )
+	_lat.val( lat )
+	_lng.val( lng )
+	_zoom.val( e.target._zoom )
 
 	marker.setLatLng( [ e.latlng.lat, e.latlng.lng ] ).addTo( map )
 } )
@@ -112,6 +116,16 @@ map.on( 'moveend', function( e ) {
 			lng = lng + 360
 		}
 	}
-	jQuery( '#' + custom_field_map_id + ' .zoom' ).val( zoom )
+	_zoom.val( zoom )
 	window.localStorage.setItem( 'location', zoom + ',' + lat + ',' + lng )
 } )
+
+var update_map = function() {
+  var lat = _lat.val()
+  var lng = _lng.val()
+
+  marker.setLatLng( [ lat, lng ] ).addTo( map )
+}
+
+_lat.on( 'change', update_map );
+_lng.on( 'change', update_map );

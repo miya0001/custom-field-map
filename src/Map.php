@@ -74,8 +74,7 @@ class Map extends \Miya\WP\Custom_Field
 	/**
 	 * Fires at the `admin_enqueue_scripts` hook.
 	 *
-	 * @param none
-	 * @return none
+	 * @param string $hook
 	 */
 	public function admin_enqueue_scripts( $hook )
 	{
@@ -88,14 +87,20 @@ class Map extends \Miya\WP\Custom_Field
 		);
 
 		wp_enqueue_style( 'leaflet' );
+
+		wp_enqueue_style(
+            "custom-field-map-admin-css",
+			plugins_url( 'css/admin.css', dirname( __FILE__ ) ),
+            false,
+            false
+        );
 	}
 
 	/**
 	 * Displays the form for the metabox. The nonce will be added automatically.
 	 *
-	 * @param object $post The object of the post.
+	 * @param \WP_Post $post The object of the post.
 	 * @param array $args The argumets passed from `add_meta_box()`.
-	 * @return none
 	 */
 	public function form( $post, $args )
 	{
@@ -107,16 +112,24 @@ class Map extends \Miya\WP\Custom_Field
 
 		?>
 			<div id="map-<?php echo esc_attr( $this->id ); ?>" style="width=100%; height:300px;"><map></map></div>
-			<input class="lat" type="hidden"
-				name="<?php echo esc_attr( $this->id ); ?>[lat]"
-				value="<?php echo @esc_attr( $meta['lat'] ); ?>">
-			<input class="lng" type="hidden"
-				name="<?php echo esc_attr( $this->id ); ?>[lng]"
-				value="<?php echo @esc_attr( $meta['lng'] ); ?>">
-			<input class="zoom" type="hidden"
-				name="<?php echo esc_attr( $this->id ); ?>[zoom]"
-				value="<?php echo @esc_attr( $meta['zoom'] ); ?>">
 
+			<table class="custom-field-map-table">
+				<tr>
+					<th>Lattitude</th>
+					<td><input class="lat" type="text"
+						name="<?php echo esc_attr( $this->id ); ?>[lat]"
+                               value="<?php echo @esc_attr( $meta['lat'] ); ?>"></td>
+				</tr>
+                <tr>
+                    <th>Longitude</th>
+                    <td><input class="lng" type="text"
+                        name="<?php echo esc_attr( $this->id ); ?>[lng]"
+                               value="<?php echo @esc_attr( $meta['lng'] ); ?>"></td>
+                </tr>
+			</table>
+            <input class="zoom" type="hidden"
+                   name="<?php echo esc_attr( $this->id ); ?>[zoom]"
+                   value="<?php echo @esc_attr( $meta['zoom'] ); ?>">
 			<script>
 				var custom_field_map_id = '<?php echo esc_js( $this->id ); ?>';
 				var custom_field_map_options = <?php echo json_encode( $this->options ); ?>;
@@ -128,7 +141,6 @@ class Map extends \Miya\WP\Custom_Field
 	 * Save the metadata from the `form()`. The nonce will be verified automatically.
 	 *
 	 * @param int $post_id The ID of the post.
-	 * @return none
 	 */
 	public function save( $post_id )
 	{

@@ -1,0 +1,15 @@
+.custom-field-map-table
+{
+    width: 100%;
+}
+
+.custom-field-map-table th
+{
+    text-align: left;
+    width: 7em;
+}
+
+.custom-field-map-table input[type="text"]
+{
+    width: 100%;
+}
